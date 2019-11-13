@@ -12,7 +12,10 @@ public class flock : MonoBehaviour
     // max distance from each other and
     // will flock just if they are max at 2.0f
     float neighbourDistance = 2.0f;
-
+    
+    //make the fishes turn back to center when 
+    //getting to the edge of the tank
+    bool turning = false;
 
     // Start is called before the first frame update
     void Start()
@@ -23,9 +26,30 @@ public class flock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //if the fishe is close to tank borders
+        if(Vector3.Distance(transform.position, Vector3.zero) >= globalFlock.tankSize)
+        {
+            turning = true;
+        }
+        else
+            //go to line 49
+            turning = false;
+        
+        if(turning)
+        {
+            //calculate direction towards center of tank 
+            Vector3 direction = Vector3.zero - transform.position;
+            transform.rotation = Quaternion.Slerp(transform.rotation,
+                Quaternion.LookRotation(direction),
+                rotationSpeed * Time.deltaTime);
+            speed = Random.Range(0.5f, 1);
+        }
+        else
+        { 
         //run the apply rules once every 5 times randomly
         if(Random.Range(0,5) < 1)
             ApplyRules();
+        }
         //fish is going to swim forward  
         transform.Translate(0, 0, Time.deltaTime * speed);
     }
