@@ -29,6 +29,7 @@ public class flock : MonoBehaviour
         //if the fishe is close to tank borders
         if(Vector3.Distance(transform.position, Vector3.zero) >= globalFlock.tankSize)
         {
+            //it turns
             turning = true;
         }
         else
