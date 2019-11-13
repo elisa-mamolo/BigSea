@@ -6,6 +6,7 @@ public class globalFlock : MonoBehaviour
 {
     public static int tankSize = 5;
     public GameObject fishPrefab;
+    public GameObject goalPrefab;
     //number of fish we want to create
     static int numFish = 10;
     //add the fishes in the array that contains all fishes
@@ -41,6 +42,8 @@ public class globalFlock : MonoBehaviour
             goalPos = new Vector3(Random.Range(-tankSize, tankSize),
                                  Random.Range(-tankSize, tankSize),
                                  Random.Range(-tankSize, tankSize));
+
+            goalPrefab.transform.position = goalPos;
         }
     }
 }
