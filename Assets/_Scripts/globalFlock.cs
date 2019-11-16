@@ -8,7 +8,7 @@ public class globalFlock : MonoBehaviour
     public GameObject fishPrefab;
     public GameObject goalPrefab;
     //number of fish we want to create
-    static int numFish = 10;
+    static int numFish = 50;
     //add the fishes in the array that contains all fishes
     public static GameObject[] allFish = new GameObject[numFish];
 
