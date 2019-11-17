@@ -24,9 +24,7 @@ public class globalFlock : MonoBehaviour
         //render setting construct for fog
         //background of fog and camera need to be the same to blend
         //could set to another color and will have a pink, blue fog
-        RenderSettings.fogColor = Camera.main.backgroundColor;
-        RenderSettings.fogDensity = 0.05F;
-        RenderSettings.fog = true;
+       
 
         //intanciate fishes before the app start
         for( int i = 0; i < numFish; i++)
