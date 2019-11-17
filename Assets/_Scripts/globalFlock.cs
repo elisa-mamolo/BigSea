@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class globalFlock : MonoBehaviour
 {
-    public static int tankSize = 5;
+    //changed from 5 to 7
+    public static int tankSize = 7;
     public GameObject fishPrefab;
     public GameObject goalPrefab;
     //number of fish we want to create
@@ -20,6 +21,13 @@ public class globalFlock : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //render setting construct for fog
+        //background of fog and camera need to be the same to blend
+        //could set to another color and will have a pink, blue fog
+        RenderSettings.fogColor = Camera.main.backgroundColor;
+        RenderSettings.fogDensity = 0.05F;
+        RenderSettings.fog = true;
+
         //intanciate fishes before the app start
         for( int i = 0; i < numFish; i++)
         {
