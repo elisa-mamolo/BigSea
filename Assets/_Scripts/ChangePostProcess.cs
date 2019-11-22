@@ -19,6 +19,7 @@ public class ChangePostProcess : MonoBehaviour
         if (col.CompareTag("Player"))
         {
             camImageFx.profile = fx;
+        
         }
     }
 

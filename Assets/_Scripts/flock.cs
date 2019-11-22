@@ -4,9 +4,9 @@ using UnityEngine;
 //makes the fishes swimming
 public class flock : MonoBehaviour
 {
-    public float speed = 0.5f;
+    public float speed = 0.1f;
     //how fast fish will turn 
-    float rotationSpeed = 4.0f;
+    float rotationSpeed = 0.5f;
     Vector3 averageHeading;
     Vector3 averagePosition;
     // max distance from each other and
@@ -22,10 +22,13 @@ public class flock : MonoBehaviour
     {
         speed = Random.Range(0.5f,1);
     }
-
+    
     // Update is called once per frame
     void Update()
     {
+
+        transform.Translate(0, 0, Time.deltaTime * speed);
+        
         //if the fishe is close to tank borders
         if(Vector3.Distance(transform.position, Vector3.zero) >= globalFlock.tankSize)
         {
@@ -112,4 +115,6 @@ public class flock : MonoBehaviour
 
         }
     }
+   
+   
 }

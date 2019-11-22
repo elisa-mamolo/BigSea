@@ -12,7 +12,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: GuillemPujol
+  companyName: com.elisa
   productName: Thalassophobia Game
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -414,6 +414,9 @@ PlayerSettings:
     m_Enabled: 1
     m_Devices: []
   - m_BuildTarget: iPhone
+    m_Enabled: 1
+    m_Devices: []
+  - m_BuildTarget: Windows Store Apps
     m_Enabled: 1
     m_Devices: []
   openGLRequireES31: 0

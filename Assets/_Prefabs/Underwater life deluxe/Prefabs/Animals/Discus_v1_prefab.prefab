@@ -542,6 +542,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4157532111668778}
   - component: {fileID: 95936676413352192}
+  - component: {fileID: -1342591937960293518}
   m_Layer: 0
   m_Name: Discus_v1_prefab
   m_TagString: Untagged
@@ -584,6 +585,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!111 &-1342591937960293518
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935673931770608}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 34319379a41f3d74aa2f13489db187fc, type: 3}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1952014544214714
 GameObject:
   m_ObjectHideFlags: 0

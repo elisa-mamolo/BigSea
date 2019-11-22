@@ -11,6 +11,7 @@ public class globalFlock : MonoBehaviour
     //number of fish we want to create
     static int numFish = 50;
     //add the fishes in the array that contains all fishes
+
     public static GameObject[] allFish = new GameObject[numFish];
 
     //initial postion in the middle of tank
@@ -35,12 +36,16 @@ public class globalFlock : MonoBehaviour
                                       Random.Range(-tankSize, tankSize));
             //instanciate the fish prefab and stick it into the array
             allFish[i] = (GameObject)Instantiate(fishPrefab, pos, Quaternion.identity);
+            //
+            //Quaternion.Euler(0f, 90f, 0f)
         }
     }
+    
 
     // Update is called once per frame
     void Update()
     {
+        
         // every 50 in 10000 times it will reset and randomly move around
         if(Random.Range(0, 10000) < 50)
         {
@@ -50,5 +55,7 @@ public class globalFlock : MonoBehaviour
 
             goalPrefab.transform.position = goalPos;
         }
+        
     }
+    
 }
