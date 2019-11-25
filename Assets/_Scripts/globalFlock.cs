@@ -22,12 +22,13 @@ public class globalFlock : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+      
         //render setting construct for fog
         //background of fog and camera need to be the same to blend
         //could set to another color and will have a pink, blue fog
-        
+
         //intanciate fishes before the app start
-        for( int i = 0; i < numFish; i++)
+        for ( int i = 0; i < numFish; i++)
         {
             //creating a position for our fish in 3d space
             //using random range between the value of tank size

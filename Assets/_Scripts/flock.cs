@@ -6,7 +6,7 @@ public class flock : MonoBehaviour
 {
     public float speed = 0.1f;
     //how fast fish will turn 
-    float rotationSpeed = 0.5f;
+    float rotationSpeed = 0.7f;
     Vector3 averageHeading;
     Vector3 averagePosition;
     // max distance from each other and
@@ -16,11 +16,14 @@ public class flock : MonoBehaviour
     //make the fishes turn back to center when 
     //getting to the edge of the tank
     bool turning = false;
+    private Quaternion rotationFrom;
+    private Quaternion rotationTo;
 
     // Start is called before the first frame update
     void Start()
     {
         speed = Random.Range(0.5f,1);
+
     }
     
     // Update is called once per frame
@@ -89,7 +92,7 @@ public class flock : MonoBehaviour
                     if(dist < 1.0f)
                     {
                         //we will go in another direction
-                        vavoid = vavoid + (this.transform.position - go.transform.position);
+                        vavoid = vavoid + (this.transform.position + go.transform.position);
                     }
 
                     //calculate speed from flock script attached to neighbour fish and have a average speed for the group at line 74
