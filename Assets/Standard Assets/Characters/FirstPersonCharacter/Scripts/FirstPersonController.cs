@@ -10,6 +10,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
     [RequireComponent(typeof (AudioSource))]
     public class FirstPersonController : MonoBehaviour
     {
+        [SerializeField] public bool m_IsSwimming;
         [SerializeField] private bool m_IsWalking;
         [SerializeField] private float m_WalkSpeed;
         [SerializeField] private float m_RunSpeed;
@@ -45,6 +46,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         // Use this for initialization
         private void Start()
         {
+            m_IsSwimming = false;
             m_CharacterController = GetComponent<CharacterController>();
             m_Camera = Camera.main;
             m_OriginalCameraPosition = m_Camera.transform.localPosition;
@@ -68,7 +70,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
             }
 
-            if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)
+            if (!m_PreviouslyGrounded && m_CharacterController.isGrounded && m_IsSwimming == false)
             {
                 StartCoroutine(m_JumpBob.DoBobCycle());
                 PlayLandingSound();
@@ -109,7 +111,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_MoveDir.z = desiredMove.z*speed;
 
 
-            if (m_CharacterController.isGrounded)
+            if (m_CharacterController.isGrounded && m_IsSwimming == false)
             {
                 m_MoveDir.y = -m_StickToGroundForce;
 
@@ -123,10 +125,30 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             else
             {
-                m_MoveDir += Physics.gravity*m_GravityMultiplier*Time.fixedDeltaTime;
+                if (m_IsSwimming == true)
+                {
+                    m_Jump = false;
+                    m_Jumping = false;
+                    m_MoveDir *= m_IsSwimming ? 0.7f : 1;
+                    m_MoveDir += Physics.gravity * (Time.fixedDeltaTime / 8);
+
+                   
+                }
+                else
+                {
+                    m_MoveDir += Physics.gravity * m_GravityMultiplier * Time.fixedDeltaTime;
+                }
+                
             }
             m_CollisionFlags = m_CharacterController.Move(m_MoveDir*Time.fixedDeltaTime);
-
+            if (CrossPlatformInputManager.GetButton("Jump") && m_IsSwimming == true)
+            {
+                m_MoveDir.y += 1 + Time.fixedDeltaTime;
+            }
+            if (CrossPlatformInputManager.GetButton("Crouch") && m_IsSwimming == true)
+            {
+                m_MoveDir.y -= 1 + Time.fixedDeltaTime;
+            }
             ProgressStepCycle(speed);
             UpdateCameraPosition(speed);
 
@@ -162,7 +184,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void PlayFootStepAudio()
         {
-            if (!m_CharacterController.isGrounded)
+            if (!m_CharacterController.isGrounded || m_IsSwimming == true)
             {
                 return;
             }
@@ -184,7 +206,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 return;
             }
-            if (m_CharacterController.velocity.magnitude > 0 && m_CharacterController.isGrounded)
+            if (m_CharacterController.velocity.magnitude > 0 && m_CharacterController.isGrounded && m_IsSwimming == false)
             {
                 m_Camera.transform.localPosition =
                     m_HeadBob.DoHeadBob(m_CharacterController.velocity.magnitude +
@@ -238,8 +260,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             m_MouseLook.LookRotation (transform, m_Camera.transform);
         }
-
-
+        public void inWater()
+        {
+            m_IsSwimming = true;
+        }
+        public void outOfWater()
+        {
+            m_IsSwimming = false;
+        }
         private void OnControllerColliderHit(ControllerColliderHit hit)
         {
             Rigidbody body = hit.collider.attachedRigidbody;
@@ -254,6 +282,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 return;
             }
             body.AddForceAtPosition(m_CharacterController.velocity*0.1f, hit.point, ForceMode.Impulse);
+        }
+        public bool CanSwim
+        {
+            get { return m_IsSwimming; }
         }
     }
 }
